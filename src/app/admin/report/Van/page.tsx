@@ -51,22 +51,28 @@ const VanDriverOperatorsReportPage = () => {
         await new Promise((resolve) => {
             logo.onload = resolve;
         });
-        pdf.addImage(logo, 'PNG', 10, 10, 20, 20);
+        pdf.addImage(logo, 'PNG', 47, 10, 20, 20);
     
         // Add company name
         pdf.setFontSize(18);
-        pdf.text('Markadz TransCo.', 70, 20);
+        pdf.text('Markadz Trans Corporation', 70, 20);
     
-        pdf.setFontSize(14);
-        pdf.text('34 Pres. Sergio Osmena Avenue', 60, 25);
-        pdf.text('Van/Driver Report', 70, 30);
+        pdf.setFontSize(12);
+        pdf.text('34 Pres. Sergio Osmena Avenue', 76, 25);
+        pdf.text('Van Report', 93, 30);
+
+        // // Add print date to top right
+        // const printDate = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        // pdf.setFontSize(10);
+        // pdf.text(`Print Date: ${printDate}`, pdf.internal.pageSize.width - 15, 10, { align: 'right' });
+    
         
         // Add selected driver's name and plate number
-        pdf.setFontSize(10);
-        pdf.text(`Start Date: ${new Date(startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 10, 40);
-        pdf.text(`End Date: ${new Date(endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 10, 45);
-        pdf.text(`Plate No.: ${selectedDriverPlateNumber}`, 10, 50);
-        pdf.text(`Driver: ${selectedDriverName}`, 10, 55);
+        pdf.setFontSize(11);
+        pdf.text(`Start Date: ${new Date(startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 14, 40);
+        pdf.text(`End Date: ${new Date(endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 14, 45);
+        pdf.text(`Plate No.: ${selectedDriverPlateNumber}`, 14, 50);
+        pdf.text(`Driver: ${selectedDriverName}`, 14, 55);
     
         // Add table
         const tableColumn = ["Date", "Temporary Driver", "Departed", "Arrived", "Terminal"];
@@ -92,7 +98,9 @@ const VanDriverOperatorsReportPage = () => {
             head: [tableColumn],
             body: tableRows,
             startY: 60,
-            theme: 'grid'
+            theme: 'grid',
+            headStyles: { fillColor: [96, 165, 250] } // Set header color to blue-400
+
         });
     
         // Open PDF in a new window for preview
@@ -100,6 +108,7 @@ const VanDriverOperatorsReportPage = () => {
         const url = URL.createObjectURL(pdfBlob);
         window.open(url);
     };
+
 
     return (
         <div className="flex justify-center items-center">

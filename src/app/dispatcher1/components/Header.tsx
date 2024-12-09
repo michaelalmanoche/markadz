@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import logo from '../../images/logo.png';
+import staff from '../../images/staff.png';
+import logout from '../../images/logout.gif';
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -44,11 +46,7 @@ const Header = () => {
       </div>
 
       <div className="flex items-center space-x-2 relative mt-[-0.3rem] right-3">
-        <img
-          alt={user.name}
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-          className="w-8 h-8 rounded-full"
-        />
+      <Image src={staff} alt="logo" className='w-9' />
 
         <button onClick={toggleDropdown} className="focus:outline-none flex items-center space-x-3 ">
           <div className="flex flex-col items-start">
@@ -63,8 +61,9 @@ const Header = () => {
 
         {dropdownOpen && (
           <div className="absolute right-0 mt-20 w-full bg-white border border-gray-200 rounded-md shadow-lg ">
-            <button onClick={handleLogout} className="block w-full py-1 text-gray-800 text-sm hover:bg-gray-100">
-              Logout
+            <button onClick={handleLogout} className="w-full py-1 text-gray-800 text-sm hover:bg-gray-100 flex items-center">
+              <Image src={logout} alt="logo" className='w-6 mr-2' />
+              <span>Logout</span>
             </button>
           </div>
         )}

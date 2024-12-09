@@ -155,6 +155,8 @@ const RegisterPage = () => {
                         Edit
                       </div>
                     </button>
+                    
+                    <style jsx>{`.relative:hover .tooltip { display: block;} `}</style>
 
                     <button
                       onClick={() => handleArchiveUser(user.id)}

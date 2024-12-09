@@ -135,27 +135,33 @@ export default function AssignmentHistoryPage() {
     await new Promise((resolve) => {
       logo.onload = resolve;
     });
-    pdf.addImage(logo, 'PNG', 10, 10, 20, 20);
+    pdf.addImage(logo, 'PNG', 47, 10, 20, 20);
   
     // Add company name
     pdf.setFontSize(18);
-    pdf.text('Markadz TransCo.', 70, 20);
+    pdf.text('Markadz Trans Corporation', 70, 20);
   
-    pdf.setFontSize(14);
-    pdf.text('34 Pres. Sergio Osmena Avenue', 60, 25);
-    pdf.text('Driver Report', 70, 30);
+    pdf.setFontSize(12);
+    pdf.text('34 Pres. Sergio Osmena Avenue', 76, 25);
+    pdf.text('Driver Report', 90, 30);
+
+    // // Add print date to top right
+    // const printDate = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    // pdf.setFontSize(10);
+    // pdf.text(`Print Date: ${printDate}`, pdf.internal.pageSize.width - 15, 10, { align: 'right' });
+  
   
     // Add selected driver's name and plate number
-    pdf.setFontSize(10);
-    pdf.text(`Start Date: ${new Date(startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 10, 40);
-    pdf.text(`End Date: ${new Date(endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 10, 45);
+    pdf.setFontSize(11);
+    pdf.text(`Start Date: ${new Date(startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 14, 40);
+    pdf.text(`End Date: ${new Date(endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`, 14, 45);
     if (selectedDriverId !== null) {
       const selectedDriver = uniqueDrivers.find(driver => driver!.id === selectedDriverId);
       if (selectedDriver) {
-        pdf.text(`Driver: ${selectedDriver!.firstname} ${selectedDriver!.lastname}`, 10, 50);
+        pdf.text(`Driver: ${selectedDriver!.firstname.toUpperCase()} ${selectedDriver!.lastname.toUpperCase()}`, 14, 50);
         const vanPlateNumber = filteredData.find(history => history.Assignment.VanDriverOperator.Driver?.id === selectedDriverId)?.Assignment.VanDriverOperator.Van.plate_number;
         if (vanPlateNumber) {
-          pdf.text(`Van Plate Number: ${vanPlateNumber}`, 10, 55);
+          pdf.text(`Van Plate Number: ${vanPlateNumber}`, 14, 55);
         }
       }
     }
@@ -181,8 +187,9 @@ export default function AssignmentHistoryPage() {
     (pdf as any).autoTable({
       head: [tableColumn],
       body: tableRows,
-      startY: 60,
-      theme: 'grid'
+      startY: 58,
+      theme: 'grid',
+      headStyles: { fillColor: [96, 165, 250] } // Set header color to blue-400
     });
   
     const currentDate = new Date().toISOString().split('T')[0];
@@ -190,8 +197,6 @@ export default function AssignmentHistoryPage() {
   
     const url = URL.createObjectURL(pdfBlob);
     const pdfWindow = window.open(url);
-  
-    
   };
   
   return (

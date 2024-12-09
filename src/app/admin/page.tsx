@@ -269,7 +269,7 @@ const Terminal1 = () => {
             return (
                 <tr key={assignment.id} className="border-b">
                 <td className="px-4 py-4 uppercase text-nowrap">
-                  {assignment.VanDriverOperator.Driver.firstname.toUpperCase()} {assignment.VanDriverOperator.Driver.lastname.toUpperCase()}
+                  {assignment.VanDriverOperator.Driver ? `${assignment.VanDriverOperator.Driver.firstname.toUpperCase()} ${assignment.VanDriverOperator.Driver.lastname.toUpperCase()}` : 'N/A'}
                 </td>
                 <td className="px-4 py-4 uppercase text-nowrap">
                   {assignment.VanDriverOperator.Van.plate_number.toUpperCase()}
